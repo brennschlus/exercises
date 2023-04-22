@@ -140,12 +140,18 @@ and lower than 6 elements (4, 5, 6, 7, 8 and 9).
 
 🕯 HINT: Use recursion to implement this function.
 -}
+
+
+
 lowerAndGreater:: Int -> [Int] -> String
-lowerAndGreater n list = show n ++ " is greater than " ++ show ( go [0,0] list !! 1) ++ " elements" ++ " and lower than " ++ show (head (go [0,0] list)) ++ " elements"
+lowerAndGreater n list = showResult (r !! 1) (head r)
     where
+    showResult:: Int -> Int -> String
+    showResult greaterCount lessCount = show n ++ " is greater than " ++ show greaterCount ++ " elements and lower than " ++ show lessCount ++ " elements"
     go :: [Int] -> [Int] -> [Int]
     go result l
         | null l = result
         | head l > n = go [head result + 1, result !! 1] (tail l)
         | head l < n = go [head result, (result !! 1) + 1] (tail l)
         | otherwise = go result (tail l)
+    r = go [0,0] list
